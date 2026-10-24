@@ -1,22 +1,157 @@
-const properties=[
-{id:1,title:"The Aurelia Villa",location:"Karachi",area:"DHA Phase 8, Karachi",type:"Villa",price:185000000,priceLabel:"PKR 18.5 Crore",beds:5,baths:6,size:"6,000 sq ft",status:"Featured",image:"https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=85",description:"A contemporary villa concept with generous living spaces, refined finishes and a private outdoor retreat. Fictional demo listing."},
-{id:2,title:"Goldcrest Residence",location:"Lahore",area:"Gulberg, Lahore",type:"Apartment",price:42000000,priceLabel:"PKR 4.2 Crore",beds:3,baths:3,size:"2,100 sq ft",status:"For Sale",image:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1000&q=85",description:"A light-filled apartment concept with open-plan living and calm neutral interiors. Fictional demo listing."},
-{id:3,title:"Crescent Garden House",location:"Islamabad",area:"F-7, Islamabad",type:"House",price:78000000,priceLabel:"PKR 7.8 Crore",beds:4,baths:5,size:"3,800 sq ft",status:"New Listing",image:"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1000&q=85",description:"A family home concept with landscaped outdoor space and natural materials. Fictional demo listing."},
-{id:4,title:"Skyline Signature Penthouse",location:"Dubai",area:"Dubai Marina, Dubai",type:"Penthouse",price:195000000,priceLabel:"PKR 19.5 Crore*",beds:4,baths:4,size:"4,200 sq ft",status:"Exclusive",image:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1000&q=85",description:"A premium penthouse concept with elegant finishes and skyline views. Fictional listing; price is illustrative."},
-{id:5,title:"Olive Court Residence",location:"Karachi",area:"Clifton, Karachi",type:"Apartment",price:16500000,priceLabel:"PKR 1.65 Crore",beds:2,baths:2,size:"1,250 sq ft",status:"For Sale",image:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1000&q=85",description:"A sophisticated apartment concept with functional living areas and warm finishes. Fictional demo listing."},
-{id:6,title:"Palm Vista Retreat",location:"Lahore",area:"Bahria Town, Lahore",type:"Villa",price:49500000,priceLabel:"PKR 4.95 Crore",beds:4,baths:4,size:"3,200 sq ft",status:"Featured",image:"https://images.unsplash.com/photo-1600607687644-c7171b42498f?auto=format&fit=crop&w=1000&q=85",description:"A modern villa concept with relaxed indoor-outdoor living. Fictional demo listing."}
+const cars = [
+  {id:1,brand:"Porsche",model:"911 Carrera",year:2024,type:"Coupe",price:48500000,priceLabel:"PKR 4.85 crore",power:"388 hp",engine:"3.0L Twin-Turbo",drive:"RWD",tag:"ICONIC",image:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=85",description:"A timeless sports car with precise handling, sculpted design and an unmistakable driving character."},
+  {id:2,brand:"Mercedes-Benz",model:"G-Class",year:2024,type:"SUV",price:67500000,priceLabel:"PKR 6.75 crore",power:"416 hp",engine:"4.0L V8",drive:"AWD",tag:"SIGNATURE SUV",image:"https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=85",description:"A bold luxury SUV that combines commanding presence with a beautifully appointed cabin."},
+  {id:3,brand:"BMW",model:"M4 Competition",year:2024,type:"Coupe",price:32500000,priceLabel:"PKR 3.25 crore",power:"503 hp",engine:"3.0L Twin-Turbo",drive:"RWD",tag:"PERFORMANCE",image:"https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=85",description:"Motorsport-inspired performance meets everyday refinement in this athletic coupe."},
+  {id:4,brand:"Range Rover",model:"Sport Autobiography",year:2024,type:"SUV",price:59000000,priceLabel:"PKR 5.90 crore",power:"523 hp",engine:"4.4L V8",drive:"AWD",tag:"REFINED",image:"https://images.unsplash.com/photo-1519641471654-76ce0107ad1b?auto=format&fit=crop&w=1200&q=85",description:"A sophisticated performance SUV designed around comfort, capability and modern luxury."},
+  {id:5,brand:"Audi",model:"RS e-tron GT",year:2024,type:"Sedan",price:42000000,priceLabel:"PKR 4.20 crore",power:"637 hp",engine:"Electric",drive:"AWD",tag:"ELECTRIC",image:"https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?auto=format&fit=crop&w=1200&q=85",description:"Progressive design and instant electric performance create a distinctly modern grand tourer."},
+  {id:6,brand:"Lexus",model:"LC 500 Convertible",year:2023,type:"Convertible",price:39500000,priceLabel:"PKR 3.95 crore",power:"471 hp",engine:"5.0L V8",drive:"RWD",tag:"OPEN-AIR",image:"https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=85",description:"An expressive grand tourer with a naturally aspirated V8 and open-air character."}
 ];
-const $=id=>document.getElementById(id),grid=$("propertyGrid"),favorites=new Set();
-function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-function card(p){let fav=favorites.has(p.id);return `<article class="property-card"><div class="property-image"><img src="${esc(p.image)}" alt="${esc(p.title)}" loading="lazy"><span class="tag">${esc(p.status)}</span><button class="favorite ${fav?"active":""}" data-fav="${p.id}" aria-label="Toggle favorite" aria-pressed="${fav}">${fav?"♥":"♡"}</button></div><div class="property-info"><p class="location">⌖ ${esc(p.area)}</p><h3>${esc(p.title)}</h3><p class="price">${esc(p.priceLabel)}</p><div class="features"><span>⌂ ${p.beds} Beds</span><span>♧ ${p.baths} Baths</span><span>↗ ${esc(p.size)}</span></div><div class="card-bottom"><small>${esc(p.type)} · ${esc(p.location)}</small><button class="details" data-details="${p.id}">View Details ↗</button></div></div></article>`;}
-function filtered(){let loc=$("locationFilter").value,type=$("typeFilter").value,budget=Number($("budgetFilter").value)||Infinity;return properties.filter(p=>(!loc||p.location===loc)&&(!type||p.type===type)&&p.price<=budget);}
-function render(list=filtered()){grid.innerHTML=list.map(card).join("");$("resultCount").textContent=`Showing ${list.length} of ${properties.length} properties`;$("emptyState").hidden=!!list.length;}
-$("searchForm").addEventListener("submit",e=>{e.preventDefault();render();$("properties").scrollIntoView({behavior:"smooth"});});
-["locationFilter","typeFilter","budgetFilter"].forEach(id=>$(id).addEventListener("change",()=>render()));
-$("resetFilters").addEventListener("click",()=>{$("searchForm").reset();render(properties);});
-grid.addEventListener("click",e=>{let f=e.target.closest("[data-fav]"),d=e.target.closest("[data-details]");if(f){let id=Number(f.dataset.fav);favorites.has(id)?favorites.delete(id):favorites.add(id);render();}if(d)openProperty(Number(d.dataset.details));});
-function openProperty(id){let p=properties.find(x=>x.id===id);if(!p)return;$("modalImage").src=p.image;$("modalImage").alt=p.title;$("modalTitle").textContent=p.title;$("modalLocation").textContent="⌖ "+p.area;$("modalPrice").textContent=p.priceLabel;$("modalDescription").textContent=p.description;$("modalFeatures").textContent=`${p.type} · ${p.beds} bedrooms · ${p.baths} bathrooms · ${p.size}`;$("propertyModal").hidden=false;document.body.classList.add("no-scroll");$("modalClose").focus();}
-function closeModal(){$("propertyModal").hidden=true;document.body.classList.remove("no-scroll");}
-$("modalClose").addEventListener("click",closeModal);$("propertyModal").addEventListener("click",e=>{if(e.target.hasAttribute("data-close")||e.target.id==="modalEnquire")closeModal();});document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!$("propertyModal").hidden)closeModal();});
-$("menuToggle").addEventListener("click",()=>{let open=$("nav").classList.toggle("open");$("menuToggle").setAttribute("aria-expanded",String(open));$("menuToggle").textContent=open?"×":"☰";});$("nav").querySelectorAll("a").forEach(a=>a.addEventListener("click",()=>{$("nav").classList.remove("open");$("menuToggle").textContent="☰";$("menuToggle").setAttribute("aria-expanded","false");}));
-$("contactForm").addEventListener("submit",e=>{e.preventDefault();if(!e.currentTarget.reportValidity())return;$("formMessage").textContent="Thanks! This demo form validates your details, but does not send messages yet.";e.currentTarget.reset();});$("year").textContent=new Date().getFullYear();render(properties);
+
+const carGrid = document.getElementById("carGrid");
+const searchInput = document.getElementById("searchInput");
+const brandFilter = document.getElementById("brandFilter");
+const typeFilter = document.getElementById("typeFilter");
+const priceFilter = document.getElementById("priceFilter");
+const resultsCount = document.getElementById("resultsCount");
+const interestCar = document.getElementById("interestCar");
+const modal = document.getElementById("carModal");
+const toast = document.getElementById("toast");
+const whatsappNumber = "923001234567"; // Replace with your own WhatsApp number, country code included, no + or spaces.
+
+function formatPrice(price) {
+  if (price >= 10000000) return `PKR ${(price / 10000000).toFixed(2)} crore`;
+  return `PKR ${price.toLocaleString("en-PK")}`;
+}
+
+function populateFilters() {
+  [...new Set(cars.map(car => car.brand))].sort().forEach(brand => {
+    const option = document.createElement("option");
+    option.value = brand;
+    option.textContent = brand;
+    brandFilter.appendChild(option);
+  });
+  cars.forEach(car => {
+    const option = document.createElement("option");
+    option.value = `${car.brand} ${car.model}`;
+    option.textContent = `${car.brand} ${car.model}`;
+    interestCar.appendChild(option);
+  });
+}
+
+function renderCars() {
+  const query = searchInput.value.trim().toLowerCase();
+  const brand = brandFilter.value;
+  const type = typeFilter.value;
+  const maxPrice = priceFilter.value === "all" ? Infinity : Number(priceFilter.value);
+
+  const filtered = cars.filter(car => {
+    const matchesSearch = `${car.brand} ${car.model} ${car.year}`.toLowerCase().includes(query);
+    return matchesSearch && (brand === "all" || car.brand === brand) &&
+      (type === "all" || car.type === type) && car.price <= maxPrice;
+  });
+
+  resultsCount.textContent = `Showing ${filtered.length} of ${cars.length} vehicles`;
+  if (!filtered.length) {
+    carGrid.innerHTML = '<div class="empty-state"><h3>No vehicles found</h3><p>Try changing your search or filters.</p></div>';
+    return;
+  }
+
+  carGrid.innerHTML = filtered.map((car, index) => `
+    <article class="car-card" style="animation-delay:${index * 70}ms">
+      <div class="car-image-wrap">
+        <img src="${car.image}" alt="${car.year} ${car.brand} ${car.model}" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=85'">
+        <span class="car-tag">${car.tag}</span>
+      </div>
+      <div class="car-card-body">
+        <div class="car-meta"><span>${car.year} · ${car.type}</span><span>${car.drive}</span></div>
+        <h3>${car.brand} ${car.model}</h3>
+        <div class="spec-list"><span>◈ ${car.power}</span><span>⚙ ${car.engine}</span></div>
+        <div class="card-bottom"><span class="car-price">${formatPrice(car.price)}</span><button class="details-btn" data-car-id="${car.id}" type="button">View details ↗</button></div>
+      </div>
+    </article>`).join("");
+}
+
+function buildWhatsAppLink(message) {
+  return `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+}
+
+function openCarDetails(id) {
+  const car = cars.find(item => item.id === Number(id));
+  if (!car) return;
+  document.getElementById("modalImage").onerror = function () { this.onerror = null; this.src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=85"; };
+  document.getElementById("modalImage").onerror = function () { this.onerror = null; this.src = "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=85"; };
+  document.getElementById("modalImage").src = car.image;
+  document.getElementById("modalImage").alt = `${car.brand} ${car.model}`;
+  document.getElementById("modalTitle").textContent = `${car.brand} ${car.model}`;
+  document.getElementById("modalDescription").textContent = car.description;
+  document.getElementById("modalSpecs").innerHTML = `
+    <span>Year: <b>${car.year}</b></span><span>Body: <b>${car.type}</b></span>
+    <span>Power: <b>${car.power}</b></span><span>Engine: <b>${car.engine}</b></span>
+    <span>Drivetrain: <b>${car.drive}</b></span><span>Collection: <b>${car.tag}</b></span>`;
+  document.getElementById("modalPrice").textContent = formatPrice(car.price);
+  document.getElementById("modalWhatsApp").href = buildWhatsAppLink(`Hello AutoLux, I'm interested in the ${car.year} ${car.brand} ${car.model}. Please share more details.`);
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+  document.getElementById("modalClose").focus();
+}
+
+function closeModal() {
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+let toastTimer;
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+}
+
+document.getElementById("menuToggle").addEventListener("click", () => {
+  const nav = document.getElementById("mainNav");
+  const isOpen = nav.classList.toggle("open");
+  document.getElementById("menuToggle").setAttribute("aria-expanded", String(isOpen));
+});
+document.querySelectorAll("#mainNav a").forEach(link => link.addEventListener("click", () => {
+  document.getElementById("mainNav").classList.remove("open");
+  document.getElementById("menuToggle").setAttribute("aria-expanded", "false");
+}));
+[searchInput, brandFilter, typeFilter, priceFilter].forEach(control => {
+  control.addEventListener(control === searchInput ? "input" : "change", renderCars);
+});
+document.getElementById("resetFilters").addEventListener("click", () => {
+  searchInput.value = "";
+  brandFilter.value = "all";
+  typeFilter.value = "all";
+  priceFilter.value = "all";
+  renderCars();
+});
+carGrid.addEventListener("click", event => {
+  const button = event.target.closest("[data-car-id]");
+  if (button) openCarDetails(button.dataset.carId);
+});
+document.getElementById("modalClose").addEventListener("click", closeModal);
+modal.addEventListener("click", event => { if (event.target === modal) closeModal(); });
+document.addEventListener("keydown", event => { if (event.key === "Escape") closeModal(); });
+
+document.getElementById("contactForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const name = document.getElementById("customerName").value.trim();
+  const email = document.getElementById("customerEmail").value.trim();
+  const vehicle = interestCar.value;
+  const message = document.getElementById("customerMessage").value.trim();
+  if (name.length < 2 || !email || !message) {
+    showToast("Please complete all required fields.");
+    return;
+  }
+  const enquiry = `Hello AutoLux, my name is ${name}. Email: ${email}. Vehicle of interest: ${vehicle}. Message: ${message}`;
+  window.open(buildWhatsAppLink(enquiry), "_blank", "noopener,noreferrer");
+  showToast("Your enquiry message is ready in WhatsApp.");
+});
+document.getElementById("whatsappFloat").href = buildWhatsAppLink("Hello AutoLux, I'd like to enquire about your car collection.");
+
+populateFilters();
+renderCars();
